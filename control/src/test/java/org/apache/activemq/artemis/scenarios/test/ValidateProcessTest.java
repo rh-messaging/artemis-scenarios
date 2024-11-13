@@ -47,7 +47,6 @@ public class ValidateProcessTest {
 
    public static final String ORDERS_INCOME_REQUEST_URI = System.getProperty("ValidateProcessTest.ordersIncomeRequest", "tcp://localhost:61616");
    public static final String BUSINESS_PROCESS_REQUEST_URI = System.getProperty("ValidateProcessTest.businessProcessRequest", "tcp://localhost:61616");
-   public static final String SIMPLE_MANAGEMENT_URI = System.getProperty("ValidateProcessTest.simpleManagement", "tcp://localhost:61616");
 
 
    // Set this to true if you want to enable tracing on the server
@@ -130,10 +129,11 @@ public class ValidateProcessTest {
       IncomeService incomeService = new IncomeService();
       incomeService.process(ordersIncomeRequest);
 
-      SimpleManagement simpleManagement = new SimpleManagement(SIMPLE_MANAGEMENT_URI, null, null);
+      SimpleManagement incomeSimpleManagement = new SimpleManagement(ORDERS_INCOME_REQUEST_URI, null, null);
+      SimpleManagement outputSimpleManagement = new SimpleManagement(BUSINESS_PROCESS_REQUEST_URI, null, null);
 
-      validateMessageCount(simpleManagement, ManufactureRouterBusiness.INCOME_ADDRESS, 0);
-      validateMessageCount(simpleManagement, DeliveryRouteBusiness.OUTPUT_ADDRESS, nElements);
+      validateMessageCount(incomeSimpleManagement, ManufactureRouterBusiness.INCOME_ADDRESS, 0);
+      validateMessageCount(outputSimpleManagement, DeliveryRouteBusiness.OUTPUT_ADDRESS, nElements);
 
       manufacturingRouteService.closeConnections();
    }
