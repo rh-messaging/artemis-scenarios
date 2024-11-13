@@ -10,6 +10,7 @@ release.properties
 *.ipr
 *.iml
 *.iws
+.idea/
 
 # Visual Studio Code
 .vscode
@@ -36,3 +37,4 @@ release.properties
 
 # tmp
 /tmp/
+
